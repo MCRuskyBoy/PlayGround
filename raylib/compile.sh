@@ -16,7 +16,7 @@ linker_flags=(
 )
 
 
-output_file="test"
+output_file="test.exe"
 
 if [ ${#linker_flags[@]} -gt 0 ]; then
 	echo "gcc ${codeinput[@]} ${linker_flags[@]} -o $output_file"
