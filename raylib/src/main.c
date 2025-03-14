@@ -1,32 +1,67 @@
 #include <raylib.h>
-
+#include <math.h>
 
 int main() {
-	InitWindow(800, 600, "Hello World!");
 	SetTargetFPS(30);
+	InitWindow(800, 600, "Hello World!");
+
+
+	float x = GetRenderWidth() / 2;
+	float y = GetRenderHeight() / 2;
+
+	int f = 256;
+
+	int r = 200;
+	int g = 360;
+	int fg = g / f;
+	int sg;
+
+	float x_p;
+	float y_p;
+
+
+	int v;
+
+
+
 
 	while (!WindowShouldClose()) {
 
 		BeginDrawing();
 		ClearBackground(BLACK);
 
-		int x_RenderCenter = GetRenderWidth() / 2;
-		int y_RenderCenter = GetRenderHeight() / 2;
 
 		const char *test = "test";
 
 		DrawFPS(0, 0);
 
 
-		DrawPixel(x_RenderCenter, y_RenderCenter, WHITE);
+		for (sg = 0; sg < g; sg += fg) {
+			x_p = (cos(sg * DEG2RAD) * r) + x;
+			y_p = (sin(sg * DEG2RAD) * r) + y;
+			DrawPixel(x_p, y_p, WHITE);
+			DrawLine(x, y, x_p, y_p, RED);
+			/*Vector2 points[v + 1] (x_p, y_p);
+			DrawTriangleFan(points*, f, RED);*/
+			}
 
+		/*for (v = 1; v < f; v += 1) {
+			Vector2 v[v] = (x_p, y_p);
+			}
 
-		DrawText(test, 400, 560, 20, WHITE);
+		DrawTriangleFan(v, f, RED);*/
+
+		DrawPixel(x, y, WHITE);
+
+		if (IsKeyPressed(84)) {
+			DrawText(test, 400, 560, 20, WHITE);
+			}
+
 		DrawText("test", 400, 580, 20, WHITE);
 
 
 		EndDrawing();
-	}
+		}
 
 
 
