@@ -1,71 +1,81 @@
 #include <raylib.h>
 #include <math.h>
 
+#include <stdio.h>
+
+
+float x_CenterWindow1 = GetRenderWidth() / 2;
+float y_CenterWindow1 = GetRenderHeight() / 2;
+
+int AnzahlDerPunkte = 6;
+int radius = 200;
+int GradDesKreises = 360;
+int GradMinAnwinklung = GradDesKreises / AnzahlDerPunkte;
+int GradSollAnwinklung;
+
+float x_Punkt;
+float y_Punkt;
+
+struct Vector2 Punkte[f];
+
+int PunkteAnzahl;
+
+
+
 int main() {
-	SetTargetFPS(30);
-	InitWindow(800, 600, "Hello World!");
-
-
-	float x = GetRenderWidth() / 2;
-	float y = GetRenderHeight() / 2;
-
-	int f = 256;
-
-	int r = 200;
-	int g = 360;
-	int fg = g / f;
-	int sg;
-
-	float x_p;
-	float y_p;
-
-
-	int v;
-
-
 
 
 	while (!WindowShouldClose()) {
+		PunkteAnzahl=0;
+		for (GradSollAnwinklung = 0; GradSollAnwinklung < GradDesKreises; GradSollAnwinklung += GradMinAnwinklung) {
+			printf("Grad Soll Anwinklung: %i\n", GradSollAnwinklung);
+			x_Punkt = (cos(GradSollAnwinklung * DEG2RAD) * radius) + x_CenterWindow1;
+			y_Punkt = (sin(GradSollAnwinklung * DEG2RAD) * radius) + y_CenterWindow1;
+			DrawPixel(x_Punkt, y_Punkt, WHITE);
 
-		BeginDrawing();
-		ClearBackground(BLACK);
-
-
-		const char *test = "test";
-
-		DrawFPS(0, 0);
-
-
-		for (sg = 0; sg < g; sg += fg) {
-			x_p = (cos(sg * DEG2RAD) * r) + x;
-			y_p = (sin(sg * DEG2RAD) * r) + y;
-			DrawPixel(x_p, y_p, WHITE);
-			DrawLine(x, y, x_p, y_p, RED);
-			/*Vector2 points[v + 1] (x_p, y_p);
-			DrawTriangleFan(points*, f, RED);*/
+			PunkteAnzahl++;
+			printf("Punkte Anzahl: %i\n", PunkteAnzahl);
+			Punkte[PunkteAnzahl].x = x_Punkt;
+			printf("x Punkt: %f\n",x_Punkt);
+			Punkte[PunkteAnzahl].y = y_Punkt;
 			}
 
-		/*for (v = 1; v < f; v += 1) {
-			Vector2 v[v] = (x_p, y_p);
-			}
+		DrawTriangleFan(Punkte, AnzahlDerPunkte, RED);
 
-		DrawTriangleFan(v, f, RED);*/
-
-		DrawPixel(x, y, WHITE);
-
-		if (IsKeyPressed(84)) {
-			DrawText(test, 400, 560, 20, WHITE);
-			}
-
-		DrawText("test", 400, 580, 20, WHITE);
-
-
-		EndDrawing();
+		DrawPixel(x_CenterWindow1, y_CenterWindow1, WHITE);
 		}
+	window1();
 
-
-
-
-	CloseWindow();
 	return 0;
+}
+
+
+int berechnungen_window1() {
+
+	while (!WindowShouldClose()) {
+		PunkteAnzahl=0;
+		for (GradSollAnwinklung = 0; GradSollAnwinklung < GradDesKreises; GradSollAnwinklung += GradMinAnwinklung) {
+			printf("Grad Soll Anwinklung: %i\n", GradSollAnwinklung);
+			x_Punkt = (cos(GradSollAnwinklung * DEG2RAD) * radius) + x_CenterWindow1;
+			y_Punkt = (sin(GradSollAnwinklung * DEG2RAD) * radius) + y_CenterWindow1;
+			DrawPixel(x_Punkt, y_Punkt, WHITE);
+}
+
+int zeichnen() {
+	DrawPixel(,, WHITE);
+}
+
+int window1() {
+	berechnungen_window1();
+
+	SetTargetFPS(5);
+	InitWindow(500, 300, "Window 1");
+	DrawFPS();
+	while (!WindowShouldClose()) {
+		ClearBackground(BLACK);
+		BeginDrawing();
+		zeichnen();
+		EndDrawing();
+	}
+	CloseWindow();
 }
